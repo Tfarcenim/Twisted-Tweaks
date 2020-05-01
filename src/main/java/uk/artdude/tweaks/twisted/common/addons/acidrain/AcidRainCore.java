@@ -3,14 +3,15 @@ package uk.artdude.tweaks.twisted.common.addons.acidrain;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.DimensionSavedDataManager;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import uk.artdude.tweaks.twisted.TwistedTweaks;
 import uk.artdude.tweaks.twisted.common.configuration.TTConfiguration;
-import uk.artdude.tweaks.twisted.common.util.References;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class AcidRainCore
     public static void onWorldTick(TickEvent.WorldTickEvent event)
 	{
 		World world = event.world;
-		int dimensionID = world.getDimension();
+		DimensionType dimensionID = world.getDimension();
 		boolean found = false;
 		for(int i = 0; i < TTConfiguration.acid_rain.dimension_whitelist.length; i++)
 		{
@@ -80,7 +81,7 @@ public class AcidRainCore
 
     public static class AcidSavedData extends WorldSavedData
 	{
-		private static final String DATA_NAME = References.modID + "_acidtracking";
+		private static final String DATA_NAME = TwistedTweaks.modID + "_acidtracking";
 
 		public AcidSavedData()
 		{

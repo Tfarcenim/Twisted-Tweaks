@@ -5,7 +5,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import uk.artdude.tweaks.twisted.common.util.References;
+import uk.artdude.tweaks.twisted.TwistedTweaks;
 
 /**
  * Created by Sam on 3/03/2018.
@@ -18,7 +18,7 @@ public class TTSounds
 	@SubscribeEvent
 	public static void onRegisterSound(RegistryEvent.Register<SoundEvent> event)
 	{
-		TEST_RECORD = new SoundEvent(new ResourceLocation(References.modID, "records.test"));
+		TEST_RECORD = new SoundEvent(new ResourceLocation(TwistedTweaks.modID, "records.test"));
 		TEST_RECORD.setRegistryName("twistedtweaks:records.test");
 
 		event.getRegistry().register(TEST_RECORD);

@@ -1,22 +1,21 @@
 package uk.artdude.tweaks.twisted.common.blocks.tileentity;
 
-import net.minecraft.util.ITickable;
+import net.minecraft.tileentity.ITickableTileEntity;
 import uk.artdude.tweaks.twisted.common.blocks.TTBlocks;
 import uk.artdude.tweaks.twisted.common.configuration.TTConfiguration;
 
-public class TileEntityTwistedTorchLit extends TileEntityTwistedTorch implements ITickable
+public class TileEntityTwistedTorchLit extends TileEntityTwistedTorch implements ITickableTileEntity
 {
 	private boolean cachedCanSeeSky = false;
 
 	@Override
-	public void update()
-	{
+	public void tick() {
 		if(!TTConfiguration.torch.enableTorchBurnout)
 			return;
 
 		int litTime = getLitTime();
 
-		if(TTConfiguration.torch.rainExtinguish && litTime % 200 == 0)
+		if(TTConfiguration.ServerConfig.rainExtinguish.get() && litTime % 200 == 0)
 			cachedCanSeeSky = world.canSeeSky(pos.up(1));
 
 		litTime++;
@@ -55,7 +54,7 @@ public class TileEntityTwistedTorchLit extends TileEntityTwistedTorch implements
 
 		if(destroy)
 		{
-			world.setBlockToAir(pos);
+			world.removeBlock(pos,false);
 			return;
 		}
 

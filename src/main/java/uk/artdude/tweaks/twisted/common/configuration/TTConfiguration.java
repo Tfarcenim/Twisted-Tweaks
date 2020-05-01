@@ -1,20 +1,13 @@
 package uk.artdude.tweaks.twisted.common.configuration;
 
-import net.minecraft.world.EnumDifficulty;
-import net.minecraftforge.common.config.Config;
-import net.minecraftforge.common.config.ConfigManager;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import uk.artdude.tweaks.twisted.TwistedTweaks;
 import uk.artdude.tweaks.twisted.common.addons.TTAddons;
-import uk.artdude.tweaks.twisted.common.util.References;
 
 @Mod.EventBusSubscriber
-@Config(modid = References.modID)
-public class TTConfiguration
-{
-    public static Blocks blocks = new Blocks();
-    public static Items items = new Items();
+@Config(modid = TwistedTweaks.modID)
+public class TTConfiguration {
     public static AcidRain acid_rain = new AcidRain();
     public static StarveDeath starve_death = new StarveDeath();
     public static Torch torch = new Torch();
@@ -25,49 +18,36 @@ public class TTConfiguration
     public static AI ai = new AI();
     public static Settings settings = new Settings();
 
-    public static class Blocks
-    {
-        @Config.Comment("This block allows you to void fluids by just pumping into it [Default = true]")
-        @Config.Name("Enable Fluid Void")
-        @Config.RequiresMcRestart
-        public boolean enableLiquidVoid = true;
-    }
+    public static class ServerConfig {
 
-    public static class Items
-    {
-        @Config.Comment("These records are using music from 'Csiers17' of which this mod " + "has permission to distribute the music. [Default = true]")
-        @Config.Name("Enable Records")
-        @Config.RequiresMcRestart
-        public  boolean enableMusicRecords = true;
-    }
+			public static ForgeConfigSpec.IntValue maxLitTime;
+			public static ForgeConfigSpec.IntValue maxLitAmount;
+			public static ForgeConfigSpec.DoubleValue litChance;
+			public static ForgeConfigSpec.DoubleValue destroyChance;
+			public static ForgeConfigSpec.BooleanValue rainExtinguish;
+			public static ForgeConfigSpec.BooleanValue destroyUnusableTorches;
+			public static ForgeConfigSpec.BooleanValue alwaysDestroyUnusableTorches;
 
-    public static class Torch
-	{
-		@Config.Comment("The total amount of time a torch will be lit, in ticks [Default = 10000]")
-		@Config.Name("Max Lit Time")
-		public int maxLitTime = 10000;
 
-		@Config.Comment("The total amount of times a torch can be lit [Default = 4]")
-		@Config.Name("Max Lit Amount")
-		public int maxLitAmount = 4;
+			public ServerConfig(ForgeConfigSpec.Builder builder){
+    		maxLitTime = builder.comment("The total amount of time a torch will be lit, in ticks")
+								.defineInRange("max_lit_time",10000,1,Integer.MAX_VALUE);
+				maxLitAmount = builder.comment("The total amount of times a torch can be lit")
+								.defineInRange("max_lit_amount",4,1,Integer.MAX_VALUE);
+				litChance = builder.comment("The chance to successfully light a torch")
+								.defineInRange("light_success_chance",.5,0,1);
+				destroyChance = builder.comment("Chance that a torch will be destroyed when it burns out")
+								.defineInRange("destroy_chance",0d,0,1);
+			  rainExtinguish = builder.comment("Does rain put out torches")
+								.define("rain_extinguishes_torches",true);
+				destroyUnusableTorches = builder.comment("Will only have a chance to destroy unusable torches")
+								.define("only_destroy_unusable_torches",false);
+				alwaysDestroyUnusableTorches = builder.comment("Will only have a chance to destroy unusable torches")
+								.define("only_destroy_unusable_torches",false);
+			}
+		}
 
-		@Config.Comment("The chance to successfully light a torch [Default = 0.5]")
-		@Config.Name("Light success chance")
-		@Config.RangeDouble(min = 0, max = 1)
-		public float litChance = 0.5F;
-
-		@Config.Comment("Chance that a torch will be destroyed when it burns out [Default = 0]")
-		@Config.Name("Destroy Chance")
-		@Config.RangeDouble(min = 0, max = 1)
-		public float destroyChance = 0F;
-
-		@Config.Comment("Does rain put out torches [Default = true]")
-		@Config.Name("Enable Player Acid Rain")
-		public boolean rainExtinguish = true;
-
-		@Config.Comment("Will only have a chance to destroy unusable torches [Default = false]")
-		@Config.Name("Only destroy unusable torches")
-		public boolean onlyDestroyUnusable = false;
+    public static class Torch {
 
 		@Config.Comment("Always destroy unusable torches, regardless of destroy chance [Default = true]")
 		@Config.Name("Always destroy unusable torches")
@@ -285,9 +265,9 @@ public class TTConfiguration
     @SubscribeEvent
     public static void onConfigChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event)
     {
-        if (event.getModID().equals(References.modID))
+        if (event.getModID().equals(TwistedTweaks.modID))
         {
-            ConfigManager.sync(References.modID, Config.Type.INSTANCE);
+            ConfigManager.sync(TwistedTweaks.modID, Config.Type.INSTANCE);
 
             TTAddons.init();
         }

@@ -10,7 +10,7 @@ import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.advancements.criterion.CriterionInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
-import uk.artdude.tweaks.twisted.common.util.References;
+import uk.artdude.tweaks.twisted.TwistedTweaks;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class CustomTrigger implements ICriterionTrigger<CustomTrigger.Instance>
 
 	public CustomTrigger(String path)
 	{
-		ID = new ResourceLocation(References.modID, path);
+		ID = new ResourceLocation(TwistedTweaks.modID, path);
 	}
 
 	@Override

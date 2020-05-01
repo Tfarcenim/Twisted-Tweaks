@@ -5,7 +5,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import uk.artdude.tweaks.twisted.common.util.References;
+import uk.artdude.tweaks.twisted.TwistedTweaks;
 
 /**
  * Created by Sam on 4/03/2018.
@@ -13,7 +13,7 @@ import uk.artdude.tweaks.twisted.common.util.References;
 public class PotionAcidBurn extends Potion
 {
 	// Create the resource location to get the texture sprites to use for the potion icon.
-	public static ResourceLocation textureResource = new ResourceLocation(References.modID, "textures/gui/potion_effects.png");
+	public static ResourceLocation textureResource = new ResourceLocation(TwistedTweaks.modID, "textures/gui/potion_effects.png");
 
 	public PotionAcidBurn(boolean badEffect, int potionColour) {
 		// Set the super.

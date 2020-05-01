@@ -6,8 +6,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
+import uk.artdude.tweaks.twisted.TwistedTweaks;
 import uk.artdude.tweaks.twisted.common.configuration.TTConfiguration;
-import uk.artdude.tweaks.twisted.common.util.References;
 
 @Mod.EventBusSubscriber
 public class TTEnchantments
@@ -26,7 +26,7 @@ public class TTEnchantments
         */
 		if(TTConfiguration.enchantments.enableGalvanized && TTConfiguration.acid_rain.player.enablePlayerAcidRain)
 		{
-			registry.register(new Galvanized().setRegistryName("galvanised").setRegistryName(References.modID, "galvanised"));
+			registry.register(new Galvanized().setRegistryName("galvanised").setRegistryName(TwistedTweaks.modID, "galvanised"));
 		}
 	}
 }

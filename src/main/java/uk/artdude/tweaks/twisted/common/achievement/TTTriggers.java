@@ -17,29 +17,8 @@ public class TTTriggers
 	public static CustomTrigger TRIGGER_BURN_ACID = new CustomTrigger("burn_acid");
 	public static CustomTrigger TRIGGER_BLIND_ACID = new CustomTrigger("blind_acid");
 
-	public static void init()
-	{
-		registerAdvancementTrigger(TRIGGER_BURN_ACID);
-		registerAdvancementTrigger(TRIGGER_BLIND_ACID);
+	public static void init() {
+		CriteriaTriggers.register(TRIGGER_BURN_ACID);
+		CriteriaTriggers.register(TRIGGER_BLIND_ACID);
 	}
-
-	//reflection bs
-	private static Method CriterionRegister;
-	public static <T extends ICriterionInstance> ICriterionTrigger<T> registerAdvancementTrigger(ICriterionTrigger<T> trigger) {
-		if(CriterionRegister == null) {
-			CriterionRegister = ObfuscationReflectionHelper.findMethod(CriteriaTriggers.class, "register", "func_192118_a", ICriterionTrigger.class);
-			CriterionRegister.setAccessible(true);
-		}
-		try
-		{
-			trigger = (ICriterionTrigger<T>) CriterionRegister.invoke(null, trigger);
-		}
-		catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
-		{
-			TwistedTweaks.logger.error("Failed to register trigger " + trigger.getId() + "!");
-			e.printStackTrace();
-		}
-		return trigger;
-	}
-
 }
